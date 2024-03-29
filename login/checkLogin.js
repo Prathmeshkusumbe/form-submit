@@ -112,9 +112,12 @@ export async function checkValidation(e){
 
   const otp = generateOtp(4);
 
-  res = await handler(otp, '+918446713319');
+  contact = '+91' + contact;
+
+  res = await handler(otp, contact);
   if(!res.status){
-    return { status: false, msg: res.msg };
+
+    return { status: false };
   }
 
   const mailTemp = emailVerificationHtml(otp);
@@ -129,6 +132,8 @@ export async function checkValidation(e){
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   // Create a link element to trigger the download
   const csvUrl = URL.createObjectURL(blob);
+
+  console.log('true')
 
   return {status:true, otp, csvUrl }
 }
